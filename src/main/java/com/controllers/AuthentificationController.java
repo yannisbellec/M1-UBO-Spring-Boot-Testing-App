@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Contrôleur REST exposant les endpoints
@@ -60,5 +61,10 @@ public class AuthentificationController {
     @DeleteMapping("/{pseudo}")
     public void delete(@PathVariable String pseudo) {
         service.delete(pseudo);
+    }
+
+    @PostMapping("/logout")
+    public Map<String, String> logout() {
+        return Map.of("message", "Déconnecté côté client: supprimez le token JWT.");
     }
 }

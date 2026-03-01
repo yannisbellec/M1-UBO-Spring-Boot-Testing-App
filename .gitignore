@@ -69,3 +69,5 @@ secrets.yml
 .gradletasknamecache
 
 data/
+
+.idea/
