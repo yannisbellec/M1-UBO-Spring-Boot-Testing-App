@@ -1,7 +1,7 @@
 package com.security;
 
-import com.entities.Authentification;
-import com.repositories.AuthentificationRepository;
+import com.clients.UserDirectoryClient;
+import com.clients.UserDirectoryUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthentificationUserDetailsService implements UserDetailsService {
 
-    private final AuthentificationRepository repository;
+    private final UserDirectoryClient userDirectoryClient;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Authentification auth = repository.findById(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+        UserDirectoryUser user = userDirectoryClient.fetchByPseudo(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé (API utilisateur)"));
 
-        return User.withUsername(auth.getPseudo())
-                .password(auth.getMdp())
+        return User.withUsername(user.pseudo())
+                .password(user.mdp())
                 .roles("USER")
                 .build();
     }
