@@ -4,6 +4,7 @@ import com.clients.UserDirectoryClient;
 import com.clients.UserDirectoryUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.Optional;
  * Placeholder: retourne vide tant que l'API utilisateur n'est pas branchée.
  */
 @Component
+@ConditionalOnExpression("'${user.api.base-url:}' == ''")
 @RequiredArgsConstructor
 public class UserDirectoryClientPlaceholder implements UserDirectoryClient {
 
