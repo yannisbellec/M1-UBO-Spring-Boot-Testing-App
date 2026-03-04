@@ -24,7 +24,7 @@ public class AuthentificationUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé (API utilisateur)"));
 
         return User.withUsername(user.pseudo())
-                .password(user.mdp())
+                .password("{noop}" + user.mdp())
                 .roles("USER")
                 .build();
     }
